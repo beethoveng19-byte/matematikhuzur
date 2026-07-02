@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÖABT İlköğretim Matematik: Ezber Bozan ve En Orijinal Çıkmış Soru Modelleri Analizi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2D3748;
+            background-color: #F7FAFC;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            border: 1px solid #E2E8F0;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #1A365D;
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .download-note {
+            background-color: #F0FFF4;
+            border-left: 4px solid #38A169;
+            color: #276749;
+            padding: 15px;
+            margin-bottom: 35px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .section-title {
+            color: #2B6CB0;
+            font-size: 20px;
+            border-bottom: 2px solid #3182CE;
+            padding-bottom: 6px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .question-box {
+            margin-bottom: 35px;
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .question-header {
+            color: #C53030;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px dashed #FEB2B2;
+            padding-bottom: 8px;
+        }
+
+        .question-header::before {
+            content: "✦";
+            margin-right: 8px;
+            color: #E53E3E;
+        }
+
+        .question-text {
+            font-style: italic;
+            font-size: 15px;
+            color: #2D3748;
+            background-color: #FFF;
+            padding: 15px;
+            border-left: 4px solid #E53E3E;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .solution-title {
+            color: #2F855A;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .solution-text {
+            font-size: 14px;
+            color: #2D3748;
+        }
+
+        .originality-badge {
+            background-color: #EDF2F7;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .originality-badge strong {
+            color: #2B6CB0;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        @media print {
+            body {
+                background-color: #FFFFFF;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .download-note {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>ÖABT İlköğretim Matematik: Ezber Bozan Soru Modelleri</h1>
+        <p>Sınav Tarihinde İlk Kez Sorulan, Ezber Bozan Orijinal Soru Tiplerinin Çözümlü Analizleri</p>
+    </div>
+
+    <div class="download-note">
+        <strong>İndirme Yönergesi:</strong> Bu belgede ÖABT sınavlarında ilk kez sorulan ve adayları ezberden kurtarıp kavramsal derinliğe zorlayan soru tipleri analiz edilmiştir. 
+        PDF olarak kaydetmek için <code>Ctrl + P</code> yapabilir; Word belgesi olarak açmak için dizindeki <code>OABT_Orijinal_Soru_Analizleri.doc</code> dosyasını çift tıklayabilirsiniz.
+    </div>
+
+    <!-- ANALİZ BÖLÜMÜ -->
+    <div class="section-title">1. Analiz (Kalkülüs) - Yön Bağımlı Çok Değişkenli Limit Modeli</div>
+    
+    <div class="question-box">
+        <div class="question-header">Soru Modeli: Çok Değişkenli Fonksiyonlarda Parabolik Yörüngeli Limit Sorgusu</div>
+        <div class="question-text">
+            $f(x, y) = \frac{x^2 y}{x^4 + y^2}$ fonksiyonu tanımlanıyor.<br>
+            Buna göre, $\lim_{(x, y) \to (0, 0)} f(x, y)$ limitinin değerini inceleyiniz.
+        </div>
+        
+        <div class="solution-title">Çözüm Analizi:</div>
+        <div class="solution-text">
+            Birçok aday çok değişkenli limitlerde kutupsal koordinatlara ($x=r\cos\theta, y=r\sin\theta$) geçmeyi veya doğrusal yolları ($y=mx$) kullanmayı ezberlemiştir. 
+            <ol>
+                <li><strong>Doğrusal Yollar Test Edilirse ($y=mx$):</strong><br>
+                    $\lim_{x \to 0} \frac{x^2 (mx)}{x^4 + (mx)^2} = \lim_{x \to 0} \frac{m x^3}{x^2 (x^2 + m^2)} = \lim_{x \to 0} \frac{mx}{x^2 + m^2} = 0$.<br>
+                    Tüm doğrusal yollar boyunca limit $0$ çıkmaktadır. Standart bir ezbere sahip aday limitin $0$ olduğunu iddia eder.
+                </li>
+                <li><strong>Parabolik Yollar Test Edilirse ($y=kx^2$):</strong><br>
+                    Dereceleri eşitlemek için yörüngeyi $y = kx^2$ olarak seçelim:<br>
+                    $\lim_{x \to 0} \frac{x^2 (kx^2)}{x^4 + (kx^2)^2} = \lim_{x \to 0} \frac{k x^4}{x^4 (1 + k^2)} = \frac{k}{1+k^2}$.
+                </li>
+            </ol>
+            Limit değeri, $(0,0)$ noktasına yaklaşılan parabolün eğrilik katsayısı olan $k$ değerine bağlı olarak değişmektedir (Örn: $y=x^2$ yolundan yaklaşılırsa $1/2$, $y=2x^2$ yolundan yaklaşılırsa $2/5$ çıkmaktadır). 
+            Dolayısıyla, farklı yörüngeler farklı limit değerleri ürettiği için <strong>limit yoktur</strong>.
+        </div>
+
+        <div class="originality-badge">
+            <strong>Orijinallik Analizi:</strong> Bu soru tipi, ÖABT'de ilk kez sorulduğunda adayların "doğrusal yaklaşımla limit her zaman bulunur" ezberini yıkmıştır. Çok değişkenli limitlerde yaklaşılan yörüngenin derecelerinin pay ve paydadaki kuvvet dengesine göre (burada $x^4$ ve $y^2$ dengesini kurmak için $y=kx^2$ seçilmiştir) belirlenmesi gerektiğini gösteren ilk ve en orijinal sorulardandır.
+        </div>
+    </div>
+
+    <!-- CEBİR BÖLÜMÜ -->
+    <div class="section-title">2. Soyut Cebir - Devirli Gruplar Arası Homomorfizma Sayısı</div>
+    
+    <div class="question-box">
+        <div class="question-header">Soru Modeli: Z_m grubundan Z_n grubuna Tanımlanabilecek Grup Homomorfizması Sayısı</div>
+        <div class="question-text">
+            $G = (\mathbb{Z}_{18}, +)$ ve $H = (\mathbb{Z}_{30}, +)$ toplamsal grupları veriliyor.<br>
+            Buna göre, $G$ grubundan $H$ grubuna tanımlanabilecek kaç farklı grup homomorfizması vardır?
+        </div>
+        
+        <div class="solution-title">Çözüm Analizi:</div>
+        <div class="solution-text">
+            Soyut cebirde homomorfizma tanımları oldukça teoriktir. Ancak devirli gruplar söz konusu olduğunda pratik ve derin bir teorem devreye girer.
+            <ul>
+                <li><strong>Teorem:</strong> $\mathbb{Z}_m$ toplamsal devirli grubundan $\mathbb{Z}_n$ grubuna tanımlanabilecek farklı grup homomorfizmalarının sayısı, $m$ ve $n$ sayılarının en büyük ortak bölenine (EBOB) eşittir:<br>
+                    $\text{Homomorfizma Sayısı} = \text{EBOB}(m, n)$
+                </li>
+                <li><strong>Uygulama:</strong> Soruda $m = 18$ ve $n = 30$ olarak verilmiştir.<br>
+                    $\text{EBOB}(18, 30) = 6$ olarak bulunur. Dolayısıyla 6 farklı grup homomorfizması tanımlanabilir.
+                </li>
+            </ul>
+        </div>
+
+        <div class="originality-badge">
+            <strong>Orijinallik Analizi:</strong> Bu soru tipi sorulmadan önce adaylar homomorfizma tanımını ($f(a+b)=f(a)+f(b)$) tek tek elemanlar üzerinden deneme-yanılmayla bulmaya çalışıyor ve zaman kaybediyordu. İlk kez sorulduğunda $\text{EBOB}(m,n)$ bağıntısının gücünü ortaya koymuş ve soyut cebirde yapısal özellikleri sorgulayan modern ÖSYM kurgularının öncüsü olmuştur.
+        </div>
+    </div>
+
+    <!-- GEOMETRİ / ANALİTİK BÖLÜMÜ -->
+    <div class="section-title">3. Analitik Geometri - Uzayda İki Doğru Arasındaki En Kısa Uzaklık (Kesişmeyen Aykırı Doğrular)</div>
+    
+    <div class="question-box">
+        <div class="question-header">Soru Modeli: Paralel Olmayan ve Kesişmeyen (Aykırı) İki Doğrunun En Yakın Mesafesi</div>
+        <div class="question-text">
+            Uzayda parametrik denklemleri verilen:<br>
+            $d_1: (x,y,z) = (1+t, 2-t, 3t)$ ve $d_2: (x,y,z) = (2s, 1+s, -s)$ doğruları arasındaki en kısa uzaklık kaç birimdir?
+        </div>
+        
+        <div class="solution-title">Çözüm Analizi:</div>
+        <div class="solution-text">
+            Aykırı doğrular arasındaki en kısa uzaklığı bulmak için vektörel karma çarpımın geometrik yorumu kullanılır.
+            <ol>
+                <li><strong>Doğruların Doğrultman Vektörleri:</strong><br>
+                    $d_1$ için $\vec{u} = (1, -1, 3)$ ve $d_2$ için $\vec{v} = (2, 1, -1)$.
+                </li>
+                <li><strong>İki Doğrultmanın Ortak Diki (Normallerin Vektörel Çarpımı):</strong><br>
+                    $\vec{n} = \vec{u} \times \vec{v} = \det \begin{bmatrix} \vec{i} & \vec{j} & \vec{k} \\ 1 & -1 & 3 \\ 2 & 1 & -1 \end{bmatrix} = (-2) \vec{i} - (-7) \vec{j} + 3 \vec{k} = (-2, 7, 3)$.
+                </li>
+                <li><strong>Doğrular Üzerinde Rastgele İki Nokta Seçimi:</strong><br>
+                    $d_1$ üzerinde $A(1, 2, 0)$ (t=0 için) ve $d_2$ üzerinde $B(0, 1, 0)$ (s=0 için) olsun. $\vec{AB} = (-1, -1, 0)$.
+                </li>
+                <li><strong>En Kısa Uzaklık Formülü (İzdüşüm Vektörü):</strong><br>
+                    $\text{En Kısa Uzaklık} = \frac{|\vec{AB} \cdot \vec{n}|}{||\vec{n}||} = \frac{|(-1 \cdot -2) + (-1 \cdot 7) + (0 \cdot 3)|}{\sqrt{(-2)^2 + 7^2 + 3^2}} = \frac{|2 - 7|}{\sqrt{4 + 49 + 9}} = \frac{5}{\sqrt{62}}$ birim.
+                </li>
+            </ol>
+        </div>
+
+        <div class="originality-badge">
+            <strong>Orijinallik Analizi:</strong> Klasik uzay analitiğinde hep düzlem denklemleri veya doğruların kesişim noktaları sorulurken, aykırı doğruların ortak dikmesi ve izdüşüm mantığını birleştiren bu soru tipi, adaylara 3 boyutlu uzayda vektörel geometriyi hissettiren en özgün sorulardan biri olarak sınav tarihine geçmiştir.
+        </div>
+    </div>
+
+    <!-- ALAN EĞİTİMİ BÖLÜMÜ -->
+    <div class="section-title">4. Alan Eğitimi - APOS Teorisi Bilişsel Aşama Analizi</div>
+    
+    <div class="question-box">
+        <div class="question-header">Soru Modeli: Matematiksel Bir Kavramın Zihinsel Yapılandırılmasında APOS Seviye Teşhisi</div>
+        <div class="question-text">
+            Fonksiyonlar konusunu işleyen bir öğretmenin dersinde geçen diyalog şu şekildedir:<br>
+            <em>Öğrenci: "Öğretmenim, bana $f(x)=2x+3$ fonksiyonunda $f(5)$ değeri sorulduğunda adım adım $2 \cdot 5 = 10$, $10 + 3 = 13$ işlemlerini kafamdan yapabiliyorum. Ancak $f(x)$ fonksiyonunun kendisini, girdiyi alıp çıktıya dönüştüren bağımsız, bütüncül bir nesne veya dönüşüm süreci olarak zihnimde canlandırmakta zorlanıyorum."</em><br>
+            Buna göre, APOS (Eylem-İşlem-Nesne-Şema) teorisine göre öğrenci hangi zihinsel aşamadadır?
+        </div>
+        
+        <div class="solution-title">Çözüm Analizi:</div>
+        <div class="solution-text">
+            APOS teorisi zihinsel yapılandırmayı dört evrede inceler:
+            <ul>
+                <li><strong>Eylem (Action):</strong> Öğrenci kavramı sadece dışsal uyarıcılar ve adım adım açık yönergelerle gerçekleştirebilir. Sayısal değer verilmeden fonksiyonu yorumlayamaz.</li>
+                <li><strong>İşlem (Process):</strong> Öğrenci eylemleri içselleştirmiştir. Adımları zihninde canlandırabilir, girdi ve çıktı arasındaki ilişkiyi formülsel olarak kavrar (Öğrenci bu aşamadadır; adımları kafasından yapabilmekte ancak fonksiyonun kendisini soyut bir nesne olarak görememektedir).</li>
+                <li><strong>Nesne (Object):</strong> Öğrenci işlemi bütüncül bir yapı olarak görür. Fonksiyonun üzerine yeni işlemler uygulayabilir (Örn: İki fonksiyonu toplama, tersini alma gibi işlemleri fonksiyonun kendisine bir nesne muamelesi yaparak yapar).</li>
+                <li><strong>Şema (Schema):</strong> Eylemler, işlemler ve nesneler arasındaki ilişkiler ağı (fonksiyon şeması) kurulmuştur.</li>
+            </ul>
+            <strong>Cevap:</strong> Öğrenci <strong>İşlem (Process)</strong> aşamasındadır.
+        </div>
+
+        <div class="originality-badge">
+            <strong>Orijinallik Analizi:</strong> ÖSYM, matematik eğitimindeki soyut kuramları doğrudan teorik tanımlarla sormak yerine, sınıf içi öğrenci diyalogları üzerinden teşhis ettiren "durum analizi" kurgularını ilk kez ÖABT Alan Eğitimi'nde kullanmaya başlamıştır. Bu kurgu, adayların ezbere kuram ezberlemesini engelleyen en orijinal yapılardan biridir.
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

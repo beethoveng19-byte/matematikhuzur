@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ÖABT Matematik sınavına yönelik bilişsel taksonomilere uygun, özgün ve yaratıcı sorular tasarlayan yapay zeka destekli analiz platformu.">
+    <title>ÖABT Matematik Soru Tasarım ve Analiz Laboratuvarı</title>
+    
+    <!-- Custom Style Sheets -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- KaTeX CSS for beautiful math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide/dist/umd/lucide.min.js"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-theme="dark">
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR PANEL (Controls and Analytics) -->
+        <aside class="sidebar">
+            
+            <!-- Logo Header -->
+            <div class="logo-container">
+                <div class="logo-icon">Σ</div>
+                <div class="logo-text">
+                    <h1>Matematik ÖABT</h1>
+                    <span>Soru Tasarım Labı</span>
+                </div>
+            </div>
+
+            <!-- API Configuration Settings -->
+            <section class="glass-card">
+                <div class="section-title">
+                    <i data-lucide="settings"></i> API AYARLARI
+                </div>
+                <div class="api-settings-panel">
+                    <div class="api-input-wrapper">
+                        <input type="password" id="api-key-input" placeholder="Gemini API Key Girin" class="api-key-input">
+                        <select id="model-select" class="settings-select">
+                            <option value="gemini-2.5-flash">Gemini 2.5 Flash (Hızlı)</option>
+                            <option value="gemini-2.5-pro">Gemini 2.5 Pro (Gelişmiş)</option>
+                        </select>
+                    </div>
+                    <span style="font-size:11px;color:var(--text-muted)">* Anahtarı boş bırakırsanız yerel şablon (çevrimdışı) motoru devreye girer.</span>
+                </div>
+            </section>
+
+            <!-- Question History -->
+            <section class="glass-card">
+                <div class="flex-space" style="margin-bottom:14px;">
+                    <div class="section-title" style="margin-bottom:0;">
+                        <i data-lucide="history"></i> SORU GEÇMİŞİ
+                    </div>
+                    <button id="btn-clear-history" class="toggle-theme-btn" title="Geçmişi Temizle" style="font-size: 14px;">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be rendered dynamically -->
+                </div>
+            </section>
+
+            <!-- Test Pool / Cart -->
+            <section class="glass-card">
+                <div class="flex-space" style="margin-bottom:14px;">
+                    <div class="section-title" style="margin-bottom:0;">
+                        <i data-lucide="folder-heart"></i> TEST HAVUZU
+                    </div>
+                    <span id="test-pool-count" class="history-difficulty easy" style="font-size:11px;font-weight:700;">0 Soru</span>
+                </div>
+                <div id="test-pool-list" class="history-list" style="max-height: 180px; margin-bottom:15px;">
+                    <!-- Selected questions will appear here -->
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                        <button id="btn-print-test-student" class="action-btn" style="padding:8px 4px;font-size:11px;justify-content:center;" disabled>
+                            <i data-lucide="user"></i> Öğrenci Kit.
+                        </button>
+                        <button id="btn-print-test-teacher" class="action-btn" style="padding:8px 4px;font-size:11px;justify-content:center;" disabled>
+                            <i data-lucide="graduation-cap"></i> Çözümlü Kit.
+                        </button>
+                    </div>
+                    <button id="btn-solve-test-online" class="action-btn" style="padding:8px;font-size:11px;justify-content:center;width:100%;" disabled>
+                        <i data-lucide="play-circle"></i> Çevrimiçi Çöz
+                    </button>
+                    <button id="btn-export-test-latex" class="action-btn primary" style="padding:8px;font-size:11px;justify-content:center;width:100%;" disabled>
+                        <i data-lucide="code"></i> Toplu LaTeX Kopyala
+                    </button>
+                </div>
+            </section>
+
+            <!-- Cognitive Analytics Chart -->
+            <section class="glass-card">
+                <div class="section-title">
+                    <i data-lucide="bar-chart-2"></i> BİLİŞSEL DAĞILIM ANALİZİ
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="cognitive-chart"></canvas>
+                </div>
+                <span style="font-size:11px;color:var(--text-muted);display:block;margin-top:10px;text-align:center;">
+                    Geçmişteki soruların Bloom düzeyleri dağılımı
+                </span>
+            </section>
+        </aside>
+
+        <!-- MAIN WORKSPACE -->
+        <main class="main-content">
+            
+            <!-- Dashboard Topbar -->
+            <header class="flex-space">
+                <div>
+                    <h2 style="font-size: 24px;">Özgün Soru Üretim Paneli</h2>
+                    <p style="font-size: 13px; color: var(--text-secondary);">Müfredata, teoremlere ve taksonomilere göre ezber bozan sorular oluşturun.</p>
+                </div>
+                <button id="toggle-theme" class="toggle-theme-btn" title="Temayı Değiştir">
+                    <i data-lucide="sun"></i>
+                </button>
+            </header>
+
+            <!-- CONFIGURATION SECTION (Left Input Area) -->
+            <div class="results-grid">
+                
+                <!-- STEP 1: Domain & Outcome Selection -->
+                <section class="glass-card">
+                    <div class="section-title">
+                        <i data-lucide="book-open"></i> ADIM 1: Konu ve Kazanım Seçimi
+                    </div>
+                    <!-- Domain Selectors -->
+                    <div id="domain-tabs" class="outcome-tabs-container">
+                        <!-- Domain tab buttons will render here -->
+                    </div>
+                    <!-- Outcomes sub list -->
+                    <div id="sub-outcomes-container" class="sub-outcomes-list">
+                        <!-- Outcome pills will render here -->
+                    </div>
+                </section>
+
+                <!-- STEP 2 & 3: Parameters & Theorems -->
+                <div class="param-grid">
+                    
+                    <!-- Cognitive Taxonomy parameters -->
+                    <div class="glass-card">
+                        <div class="section-title">
+                            <i data-lucide="brain"></i> ADIM 2: Bilişsel Parametreler
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:15px;">
+                            <div>
+                                <label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">Zorluk Derecesi</label>
+                                <div class="btn-group" data-param="difficulty">
+                                    <button type="button" class="selector-btn easy">Kolay</button>
+                                    <button type="button" class="selector-btn active medium">Orta</button>
+                                    <button type="button" class="selector-btn hard">Zor</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">Yenilenmiş Bloom Basamağı</label>
+                                <div class="btn-group" data-param="bloom">
+                                    <button type="button" class="selector-btn">Hatırlama</button>
+                                    <button type="button" class="selector-btn">Kavrama</button>
+                                    <button type="button" class="selector-btn active">Uygulama</button>
+                                    <button type="button" class="selector-btn">Analiz</button>
+                                    <button type="button" class="selector-btn">Değerlendirme</button>
+                                    <button type="button" class="selector-btn">Yaratma</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">SOLO Taksonomisi Düzeyi</label>
+                                <div class="btn-group" data-param="solo">
+                                    <button type="button" class="selector-btn">Tek Yönlü</button>
+                                    <button type="button" class="selector-btn">Çok Yönlü</button>
+                                    <button type="button" class="selector-btn active">İlişkisel</button>
+                                    <button type="button" class="selector-btn">Soyutlanmış İlişkisel</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">Webb Bilgi Derinliği (DOK)</label>
+                                <div class="btn-group" data-param="dok">
+                                    <button type="button" class="selector-btn">Düzey 1</button>
+                                    <button type="button" class="selector-btn active">Düzey 2</button>
+                                    <button type="button" class="selector-btn">Düzey 3</button>
+                                    <button type="button" class="selector-btn">Düzey 4</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theorems list -->
+                    <div class="glass-card">
+                        <div class="section-title">
+                            <i data-lucide="scroll"></i> ADIM 3: İlişkili Teoremler
+                        </div>
+                        <div id="theorems-container" class="theorems-list">
+                            <!-- Theorem pills will render here based on active domain -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Custom Prompts, Keyboard and Generate -->
+                <section class="glass-card">
+                    <div class="section-title">
+                        <i data-lucide="edit-3"></i> ADIM 4: Özel Yönergeler ve Matematiksel Klavye
+                    </div>
+                    <textarea id="additional-instructions" class="input-textarea" placeholder="Örn: Limit sorusunda yörüngeleri parabolik seçtir, ya da öğrenci diyalogu içeren APOS eylem düzeyi sorusu olsun..."></textarea>
+                    
+                    <!-- Live KaTeX preview -->
+                    <div id="live-preview" class="live-preview-box">
+                        <span style="font-style:italic;color:var(--text-muted)">Matematiksel klavye veya el yazısı KaTeX kodlarının anlık önizlemesi burada gösterilir...</span>
+                    </div>
+
+                    <!-- Virtual Math Keyboard Container -->
+                    <div id="math-keyboard">
+                        <!-- Rendered by keyboard.js -->
+                    </div>
+
+                    <button id="generate-btn" class="generate-btn" style="margin-top:20px;">
+                        <i data-lucide="sparkles"></i> ÖZGÜN VE ANALİTİK SORU ÜRET
+                    </button>
+                </section>
+                
+            </div>
+
+            <!-- OUTPUT SECTION (Right results area) -->
+            
+            <!-- Loading Indicator -->
+            <div id="loading-box" class="glass-card loading-box">
+                <div class="spinner"></div>
+                <div class="loading-text">Matematiksel Teoremler ve Pedagojik Yapılar Analiz Ediliyor...</div>
+            </div>
+
+            <!-- Empty Results State -->
+            <div id="empty-results-state" class="glass-card empty-state" style="padding: 60px 0;">
+                <i data-lucide="sparkles" style="font-size:40px;color:var(--color-primary);animation:pulse 2s infinite;"></i>
+                <h3 style="margin-top:10px;">Henüz Soru Üretilmedi</h3>
+                <p style="font-size:13px;max-width:400px;margin:0 auto;">Soldaki panelden kazanım ve bilişsel seviyeleri belirleyerek 'Özgün Soru Üret' butonuna basın.</p>
+            </div>
+
+            <!-- Rendered Question & Analysis Card -->
+            <article id="results-panel" class="results-grid" style="display:none;">
+                
+                <!-- Main Question Presentation -->
+                <section class="glass-card question-card">
+                    <div class="question-title-bar">
+                        <div>
+                            <span id="q-domain-title" style="font-size:11px;font-weight:700;color:var(--color-secondary);text-transform:uppercase;letter-spacing:1px;">Analiz (Kalkülüs)</span>
+                            <h3 id="q-kazanim-text" style="font-size:16px;color:var(--text-primary);margin-top:4px;">Çok Değişkenli Limit</h3>
+                        </div>
+                        <span id="q-difficulty-badge" class="history-difficulty medium">Orta</span>
+                    </div>
+
+                    <!-- Question Text -->
+                    <div id="question-text-content" class="question-text-area">
+                        <!-- Loaded dynamically -->
+                    </div>
+
+                    <!-- Options List -->
+                    <div id="options-list" class="options-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+
+                    <!-- Export and Copy actions -->
+                    <div class="actions-row">
+                        <button id="btn-copy" class="action-btn primary">
+                            <i data-lucide="copy"></i> LaTeX Kodunu Kopyala
+                        </button>
+                        <button id="btn-print" class="action-btn">
+                            <i data-lucide="printer"></i> Soruyu Yazdır (PDF)
+                        </button>
+                        <button id="btn-toggle-test" class="action-btn">
+                            <i data-lucide="plus-circle"></i> Teste Ekle
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Detailed Solutions & Cognitive Analysis Tabs -->
+                <section class="glass-card">
+                    <nav class="analysis-tabs">
+                        <button type="button" class="analysis-tab-btn active" data-tab="solution">Detaylı Çözüm</button>
+                        <button type="button" class="analysis-tab-btn" data-tab="cognitive">Bilişsel & Teorik Analiz</button>
+                        <button type="button" class="analysis-tab-btn" data-tab="originality">Orijinallik Gerekçesi</button>
+                    </nav>
+
+                    <!-- Tab 1: Detailed Solution -->
+                    <div id="tab-solution" class="tab-content active">
+                        <div id="solution-content" class="solution-text-box">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Cognitive Analysis -->
+                    <div id="tab-cognitive" class="tab-content">
+                        <!-- Badges -->
+                        <div class="badge-container">
+                            <span id="bloom-badge" class="tax-badge bloom"><i data-lucide="brain"></i> Bloom: Uygulama</span>
+                            <span id="solo-badge" class="tax-badge solo"><i data-lucide="layers"></i> SOLO: İlişkisel</span>
+                            <span id="dok-badge" class="tax-badge dok"><i data-lucide="line-chart"></i> DOK: Düzey 2</span>
+                        </div>
+
+                        <!-- Used Theorems -->
+                        <div class="list-group">
+                            <div class="list-group-title">
+                                <i data-lucide="scroll"></i> Soruda Kullanılan Teoremler ve Kurallar
+                            </div>
+                            <ul id="theorems-used-list" class="custom-list">
+                                <!-- Loaded dynamically -->
+                            </ul>
+                        </div>
+
+                        <!-- Targeted Misconceptions -->
+                        <div class="list-group">
+                            <div class="list-group-title">
+                                <i data-lucide="alert-triangle" style="color:var(--color-danger)"></i> Hedeflenen Kavram Yanılgıları / Sık Yapılan Hatalar
+                            </div>
+                            <ul id="misconceptions-list" class="custom-list">
+                                <!-- Loaded dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Originality Rationale -->
+                    <div id="tab-originality" class="tab-content">
+                        <div class="list-group-title">
+                            <i data-lucide="sparkles"></i> Ezber Bozan Yaratıcı Tasarım Raporu
+                        </div>
+                        <div id="originality-text" class="rationale-text">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+                </section>
+
+            </article>
+
+        </main>
+
+    </div>
+
+    <!-- ONLINE TEST SOLVER MODAL -->
+    <div id="test-solver-modal" class="test-solver-overlay" style="display: none;">
+        <div class="solver-container">
+            <header class="solver-header flex-space">
+                <div class="logo-container" style="margin-bottom:0;">
+                    <div class="logo-icon">Σ</div>
+                    <div class="logo-text">
+                        <h2 style="font-size:20px;color:white;margin:0;">Çevrimiçi Sınav</h2>
+                        <span id="solver-progress" style="font-size:11px;color:var(--text-secondary);">Soru 1 / 1</span>
+                    </div>
+                </div>
+                <div class="solver-timer" style="display:flex;align-items:center;gap:6px;font-size:14px;color:var(--color-secondary);font-weight:600;background:rgba(6,182,212,0.1);padding:6px 12px;border-radius:20px;border:1px solid rgba(6,182,212,0.2);">
+                    <i data-lucide="clock" style="width:16px;height:16px;"></i> <span id="solver-timer-text">00:00</span>
+                </div>
+                <button id="btn-close-solver" class="toggle-theme-btn" style="color:var(--color-danger);font-size:24px;background:none;border:none;cursor:pointer;">
+                    <i data-lucide="x-circle"></i>
+                </button>
+            </header>
+            
+            <div class="solver-body-grid">
+                <!-- Left side: Question display -->
+                <div class="solver-question-area glass-card" style="display:flex;flex-direction:column;gap:15px;flex-grow:1;overflow-y:auto;max-height:65vh;">
+                    <div id="solver-q-text" class="question-text-area" style="font-size:16px;line-height:1.7;background:rgba(255,255,255,0.01);border:1px solid var(--border-color);padding:20px;border-radius:10px;">
+                        <!-- Question text here -->
+                    </div>
+                    <div id="solver-options-list" class="options-container">
+                        <!-- Options list here -->
+                    </div>
+                </div>
+                
+                <!-- Right side: Navigation & Actions -->
+                <div class="solver-sidebar" style="display:flex;flex-direction:column;gap:15px;width:240px;flex-shrink:0;">
+                    <div class="glass-card" style="padding:18px;">
+                        <h3 class="section-title" style="font-size:13px;"><i data-lucide="layout-grid"></i> Soru Seçici</h3>
+                        <div id="solver-nav-grid" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;margin-top:12px;">
+                            <!-- Nav buttons -->
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="display:flex;flex-direction:column;gap:10px;margin-top:auto;padding:18px;">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <button id="btn-solver-prev" class="action-btn" style="justify-content:center;padding:8px;"><i data-lucide="chevron-left"></i> Geri</button>
+                            <button id="btn-solver-next" class="action-btn" style="justify-content:center;padding:8px;">İleri <i data-lucide="chevron-right"></i></button>
+                        </div>
+                        <button id="btn-solver-finish" class="generate-btn" style="background:var(--color-danger);box-shadow:none;padding:10px;font-size:13px;width:100%;"><i data-lucide="check-square"></i> Sınavı Bitir</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Result Overlay Card (Hidden initially) -->
+            <div id="solver-results-overlay" class="solver-results-card glass-card" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:90%;max-width:550px;z-index:100;box-shadow:0 15px 50px rgba(0,0,0,0.5);border-color:var(--color-primary);background:rgba(15,11,27,0.95);">
+                <div style="text-align:center;margin-bottom:20px;">
+                    <i data-lucide="award" style="width:48px;height:48px;color:var(--color-primary);margin-bottom:8px;"></i>
+                    <h2 style="font-family:var(--font-heading);font-size:22px;color:white;">Sınav Sonuç Raporu</h2>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin-bottom:20px;text-align:center;">
+                    <div class="glass-card" style="padding:12px;border-color:var(--color-success);background:rgba(16,185,129,0.03);">
+                        <div style="font-size:22px;font-weight:bold;color:var(--color-success)" id="results-correct">0</div>
+                        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Doğru</div>
+                    </div>
+                    <div class="glass-card" style="padding:12px;border-color:var(--color-danger);background:rgba(244,63,94,0.03);">
+                        <div style="font-size:22px;font-weight:bold;color:var(--color-danger)" id="results-incorrect">0</div>
+                        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Yanlış</div>
+                    </div>
+                    <div class="glass-card" style="padding:12px;border-color:var(--text-muted);background:rgba(255,255,255,0.01);">
+                        <div style="font-size:22px;font-weight:bold;color:var(--text-primary)" id="results-blank">0</div>
+                        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Boş</div>
+                    </div>
+                </div>
+                <div id="results-review-list" style="max-height:200px;overflow-y:auto;margin-bottom:20px;padding-right:6px;display:flex;flex-direction:column;gap:8px;">
+                    <!-- Question items review list -->
+                </div>
+                <button id="btn-results-close" class="generate-btn" style="width:100%;padding:12px;font-size:14px;">Kapat ve Panele Dön</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KaTeX library scripts -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    
+    <!-- Platform script modules -->
+    <script src="kazanimlar.js"></script>
+    <script src="keyboard.js"></script>
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Initialize Lucide Icons -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

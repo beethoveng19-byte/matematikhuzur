@@ -3,7 +3,7 @@
 const OFFLINE_QUESTIONS = {
     analiz: [
         {
-            kazanim_id: "an_4",
+            kazanim_id: "an_5",
             question: "Let $f(x, y) = \\frac{x^2 y}{x^4 + y^2}$ be a function defined on $\\mathbb{R}^2 \\setminus \\{(0,0)\\}$. Investigating the limit as $(x,y) \\to (0,0)$, along which of the following families of curves does the function approach a value that is dependent on the curve's parameter, thereby proving that the limit does not exist?",
             options: {
                 A: "$y = mx$ (Linear paths)",
@@ -24,7 +24,7 @@ const OFFLINE_QUESTIONS = {
             }
         },
         {
-            kazanim_id: "an_2",
+            kazanim_id: "an_3",
             question: "Let $f: [0, 1] \\to \\mathbb{R}$ be a continuous function on $[0,1]$ and differentiable on $(0,1)$ such that $f(0) = f(1) = 0$. Which auxiliary function should be defined to prove that there exists a point $c \\in (0, 1)$ satisfying $f'(c) + 2c f(c) = 0$ using Rolle's Theorem?",
             options: {
                 A: "$g(x) = e^x f(x)$",
@@ -45,9 +45,9 @@ const OFFLINE_QUESTIONS = {
             }
         }
     ],
-    lineer_cebir: [
+    cebir: [
         {
-            kazanim_id: "lc_4",
+            kazanim_id: "cb_3",
             question: "Let $A$ be a $3 \\times 3$ real matrix satisfying the relation $A^3 - A^2 - A + I_3 = 0$. If $\\det(A) = -1$, what is the trace of $A^2$?",
             options: {
                 A: "1",
@@ -66,11 +66,9 @@ const OFFLINE_QUESTIONS = {
                 misconceptions_targeted: ["Determinant ile özdeğer çarpanları arasındaki ilişkiyi kuramama", "A matrisini bulmaya çalışarak vakit kaybetme"],
                 originality_rationale: "Bu soru, adayı matris elemanlarıyla işlem yapmak yerine özdeğerlerin cebirsel yapısını ve karakteristik polinom ilişkilerini analiz etmeye zorlar."
             }
-        }
-    ],
-    soyut_cebir: [
+        },
         {
-            kazanim_id: "sc_3",
+            kazanim_id: "cb_2",
             question: "Let $G = (\\mathbb{Z}_{18}, +)$ and $H = (\\mathbb{Z}_{30}, +)$ be additive cyclic groups. How many different group homomorphisms $\\phi: G \\to H$ can be defined?",
             options: {
                 A: "2",
@@ -89,43 +87,32 @@ const OFFLINE_QUESTIONS = {
                 misconceptions_targeted: ["Grup homomorfizmasını eleman eleman eşleyerek bulmaya çalışıp vakit kaybetme"],
                 originality_rationale: "Devirli grupların yapısal üreteç özelliklerini ve GCD arasındaki aritmetik bağıntıyı birleştiren, ÖABT sınavlarında ayırt edici bir soru şablonudur."
             }
-        }
-    ],
-    diferansiyel_denklemler: [
+        },
         {
-            kazanim_id: "dd_1",
-            question: "An integrating factor for the differential equation $(3y^2 - x)dx + (2y^3 - 6xy)dy = 0$ is known to be of the form $\\mu(x,y) = x^a y^b$. What is the value of the product $a \\cdot b$?",
+            kazanim_id: "cb_1",
+            question: "Adayların modüler aritmetik konusundaki ezberlerini bozmak isteyen bir soru yazarı şu soruyu kurguluyor: <br> $x \\equiv 2 \\pmod 3$ <br> $x \\equiv 3 \\pmod 5$ <br> $x \\equiv 2 \\pmod 7$ <br> denklik sistemini sağlayan en küçük pozitif $x$ tam sayısının rakamları toplamı kaçtır?",
             options: {
-                A: "-2",
-                B: "-1",
-                C: "0",
-                D: "2",
-                E: "6"
+                A: "5",
+                B: "8",
+                C: "11",
+                D: "14",
+                E: "17"
             },
             correct_answer: "A",
-            solution: "1. Let $M(x,y) = 3y^2 - x$ and $N(x,y) = 2y^3 - 6xy$.<br>Multiply the equation by $\\mu(x,y) = x^a y^b$ to make it exact:<br>$$x^a y^b (3y^2 - x)dx + x^a y^b (2y^3 - 6xy)dy = 0$$<br>$$(3x^a y^{b+2} - x^{a+1} y^b)dx + (2x^a y^{b+3} - 6x^{a+1} y^{b+1})dy = 0$$<br>2. For the equation to be exact, the partial derivatives must be equal: $\\frac{\partial M_{new}}{\partial y} = \\frac{\partial N_{new}}{\partial x}$<br>$$\\frac{\partial}{\partial y}(3x^a y^{b+2} - x^{a+1} y^b) = 3(b+2)x^a y^{b+1} - b x^{a+1} y^{b-1}$$<br>$$\\frac{\partial}{\partial x}(2x^a y^{b+3} - 6x^{a+1} y^{b+1}) = 2a x^{a-1} y^{b+3} - 6(a+1)x^a y^{b+1}$$<br>3. Matching coefficients of the terms:<br>- Terms with $x^a y^{b+1}$:<br>$$3(b+2) = -6(a+1) \\implies b+2 = -2(a+1) \\implies 2a + b = -4$$<br>- Terms with $x^{a+1} y^{b-1}$ and $x^{a-1} y^{b+3}$ must disappear or balance. Looking at the power structures, for $x^{a+1} y^{b-1} = x^{a-1} y^{b+3}$, we need $a+1 = a-1$ (impossible) or coefficients must be zero:<br>$$b = 0 \\quad \\text{and} \\quad 2a = 0 \\implies a=0, b=0$$ (but this does not satisfy $2a+b=-4$).<br>Let's check the derivation: $N = 2y^3 - 6xy$. $\\mu N = 2x^a y^{b+3} - 6x^{a+1} y^{b+1}$.<br>$\\frac{\partial (\\mu N)}{\partial x} = 2a x^{a-1} y^{b+3} - 6(a+1) x^a y^{b+1}$.<br>For terms to match, we must have $a=0$ for the first term of $N_{new}$ to match the second term of $M_{new}$? No, let's equate terms of the same powers:<br>- Term 1: $x^a y^{b+1}$. Coefficients: $3(b+2) = -6(a+1) \\implies 3b + 6 = -6a - 6 \\implies 6a + 3b = -12 \\implies 2a + b = -4$.<br>- Term 2: $x^{a+1} y^{b-1}$ and $x^{a-1} y^{b+3}$. For these terms to cancel each other, the powers must match:<br>$a+1 = a-1 \\implies$ impossible, so their coefficients must be equal to 0.<br>Thus: $-b = 0 \\implies b = 0$, and $2a = 0 \\implies a = 0$.<br>Wait, let's re-verify the original question. If we set $b = -2$, then $2a - 2 = -4 \\implies 2a = -2 \\implies a = -1$.<br>Let's plug in $a=-1, b=-2$ into the partial derivatives:<br>$M_{new} = 3x^{-1} - x^{0} y^{-2} = 3x^{-1} - y^{-2}$.<br>$\\frac{\partial M_{new}}{\partial y} = 2y^{-3}$.<br>$N_{new} = 2x^{-1} y - 6y^{-1}$.<br>$\\frac{\partial N_{new}}{\partial x} = -2x^{-2} y$ (does not match).<br>Ah! Let's check: $(3y^2 - x)dx + (2y^3 - 6xy)dy = 0$.<br>If $\\mu(x,y) = x^{-1} y^{-2}$, then:<br>$M_{new} = x^{-1} y^{-2} (3y^2 - x) = 3x^{-1} - y^{-2}$.<br>$N_{new} = x^{-1} y^{-2} (2y^3 - 6xy) = 2x^{-1} y - 6y^{-1}$.<br>Let's compute: $\\frac{\partial M_{new}}{\partial y} = 2y^{-3}$.<br>Wait, $\\frac{\partial N_{new}}{\partial x} = -2x^{-2}y$. They don't match.<br>Let's find the correct integrating factor. Let's rewrite the equation as:<br>$(3y^2 - x)dx + (2y^2 - 6x)ydy = 0$.<br>If we multiply by $y^{-2}$, we get:<br>$(3 - xy^{-2})dx + (2y - 6xy^{-1})dy = 0$.<br>Let's check: $\\frac{\partial}{\partial y}(3 - xy^{-2}) = 2xy^{-3}$. $\\frac{\partial}{\partial x}(2y - 6xy^{-1}) = -6y^{-1}$. Still not exact.<br>Let's choose the parameters of our pre-coded question such that it is mathematically exact. Let the differential equation be:<br>$(3x y + y^2)dx + (x^2 + xy)dy = 0$.<br>Let's check this: $\\mu = x^a y^b$.<br>Equation: $(3x^{a+1}y^{b+1} + x^a y^{b+2})dx + (x^{a+2}y^b + x^{a+1}y^{b+1})dy = 0$.<br>$\\frac{\partial M_{new}}{\partial y} = 3(b+1)x^{a+1}y^b + (b+2)x^a y^{b+1}$.<br>$\\frac{\partial N_{new}}{\partial x} = (a+2)x^{a+1}y^b + (a+1)x^a y^{b+1}$.<br>Equating coefficients:<br>1) $3(b+1) = a+2 \\implies a - 3b = 1$<br>2) $b+2 = a+1 \\implies a - b = 1$<br>Subtracting these two: $2b = 0 \\implies b = 0$, which gives $a = 1$.<br>Let's verify: for $a=1, b=0$, $\\mu = x$.<br>Equation becomes: $(3x^2 y + xy^2)dx + (x^3 + x^2 y)dy = 0$.<br>$\\frac{\partial M}{\partial y} = 3x^2 + 2xy$.<br>$\\frac{\partial N}{\partial x} = 3x^2 + 2xy$. Exact! And the product $a \\cdot b = 1 \\cdot 0 = 0$.<br>Let's write this exact equation in our database: $(3xy + y^2)dx + (x^2 + xy)dy = 0$. It is mathematically sound, elegant, and tests the exact concept!",
-            options: {
-                A: "-2",
-                B: "-1",
-                C: "0",
-                D: "1",
-                E: "2"
-            },
-            correct_answer: "C",
-            solution: "1. Let $M(x,y) = 3xy + y^2$ and $N(x,y) = x^2 + xy$.<br>Multiply by the integrating factor $\\mu(x,y) = x^a y^b$:<br>$$(3x^{a+1}y^{b+1} + x^a y^{b+2})dx + (x^{a+2}y^b + x^{a+1}y^{b+1})dy = 0$$<br>2. For this equation to be exact, we must have $\\frac{\partial M_{new}}{\partial y} = \\frac{\partial N_{new}}{\partial x}$:<br>$$\\frac{\partial M_{new}}{\partial y} = 3(b+1)x^{a+1}y^b + (b+2)x^a y^{b+1}$$<br>$$\\frac{\partial N_{new}}{\partial x} = (a+2)x^{a+1}y^b + (a+1)x^a y^{b+1}$$<br>3. Equating the coefficients of identical power terms:<br>- For $x^{a+1}y^b$: $3(b+1) = a+2 \\implies a - 3b = 1$<br>- For $x^a y^{b+1}$: $b+2 = a+1 \\implies a - b = 1$<br>4. Solving this linear system:<br>Subtracting the first equation from the second: $2b = 0 \\implies b = 0$.<br>Plugging $b=0$ back: $a = 1$.<br>5. The integrating factor is $\\mu(x,y) = x^1 y^0 = x$.<br>The product $a \\cdot b = 1 \\cdot 0 = 0$.",
+            solution: "Bu soru Çin Kalan Teoremi (Chinese Remainder Theorem) yardımıyla çözülebilir. <br>1. **Sistemin Yapısı:** <br> $m_1 = 3$, $m_2 = 5$, $m_3 = 7$ modları aralarında asaldır. Toplam mod $M = 3 \\cdot 5 \\cdot 7 = 105$'dir. <br>2. **Denklemleri Çözme:** <br> Birinci ve üçüncü denklemlere baktığımızda: $x \\equiv 2 \\pmod 3$ ve $x \\equiv 2 \\pmod 7$. <br> Buradan $x \\equiv 2 \\pmod{21}$ elde edilir. Yani $x = 21k + 2$ formundadır. <br>3. **İkinci Denklemle Birleştirme:** <br> $21k + 2 \\equiv 3 \\pmod 5$ <br> $21 \\equiv 1 \\pmod 5$ olduğundan, $k + 2 \\equiv 3 \\pmod 5 \\implies k \\equiv 1 \\pmod 5$ bulunur. <br> En küçük pozitif $k$ değeri için $k = 1$ seçilirse: <br> $x = 21(1) + 2 = 23$. <br>4. **Doğrulama:** <br> $23 \\equiv 2 \\pmod 3$ (Doğru) <br> $23 \\equiv 3 \\pmod 5$ (Doğru) <br> $23 \\equiv 2 \\pmod 7$ (Doğru) <br>5. **Rakamlar Toplamı:** <br> $2 + 3 = 5$ olup doğru cevap A seçeneğidir.",
             cognitive_analysis: {
-                bloom_level: "Uygulama (Application)",
+                bloom_level: "Uygulama (Application - İşlemsel Bilgi)",
                 solo_level: "Çok Yönlü (Multi-structural)",
                 dok_level: "Düzey 2 (Beceri/Kavramsal)",
-                theorems_used: ["Tam Diferansiyel Denklemler", "İntegral Çarpanı Yöntemi"],
-                misconceptions_targeted: ["İntegral çarpanının sadece tek değişkene bağlı olabileceği önyargısı"],
-                originality_rationale: "Adayı formül ezberlemek yerine tam diferansiyel şartının kısmi türev eşitliğine dayanan tanımını yapmaya ve katsayı eşitlemeye yönlendirir."
+                theorems_used: ["Çin Kalan Teoremi (CRT)", "Aritmetik Kalan Analizi"],
+                misconceptions_targeted: ["Çin Kalan Teoremi'ni sadece uzun formüllere bağlı kalarak çözmeye çalışıp pratik yolları görememe"],
+                originality_rationale: "Bu soru, standart Çin Kalan Teoremi formülü yerine iki modun kalanının eşit olmasından yararlanan pratik ve hızlı bir kavramsal analiz yolu sunmaktadır."
             }
         }
     ],
-    analitik_geometri: [
+    geometri: [
         {
-            kazanim_id: "ag_2",
+            kazanim_id: "geo_3",
             question: "In 3D space $\\mathbb{R}^3$, the parametric equations of two skew lines are given by:<br>$d_1: (x,y,z) = (1+t, 2-t, 3t)$ and $d_2: (x,y,z) = (2s, 1+s, -s)$.<br>What is the shortest distance between these two lines?",
             options: {
                 A: "$\\frac{3}{\\sqrt{62}}$ units",
@@ -146,9 +133,30 @@ const OFFLINE_QUESTIONS = {
             }
         }
     ],
-    olasilik_istatistik: [
+    uygulamali_matematik: [
         {
-            kazanim_id: "oi_1",
+            kazanim_id: "um_3",
+            question: "An integrating factor for the differential equation $(3xy + y^2)dx + (x^2 + xy)dy = 0$ is known to be of the form $\\mu(x,y) = x^a y^b$. What is the value of the product $a \\cdot b$?",
+            options: {
+                A: "-2",
+                B: "-1",
+                C: "0",
+                D: "1",
+                E: "2"
+            },
+            correct_answer: "C",
+            solution: "1. Let $M(x,y) = 3xy + y^2$ and $N(x,y) = x^2 + xy$.<br>Multiply by the integrating factor $\\mu(x,y) = x^a y^b$:<br>$$(3x^{a+1}y^{b+1} + x^a y^{b+2})dx + (x^{a+2}y^b + x^{a+1}y^{b+1})dy = 0$$<br>2. For this equation to be exact, we must have $\\frac{\partial M_{new}}{\partial y} = \\frac{\partial N_{new}}{\partial x}$:<br>$$\\frac{\partial M_{new}}{\partial y} = 3(b+1)x^{a+1}y^b + (b+2)x^a y^{b+1}$$<br>$$\\frac{\partial N_{new}}{\partial x} = (a+2)x^{a+1}y^b + (a+1)x^a y^{b+1}$$<br>3. Equating the coefficients of identical power terms:<br>- For $x^{a+1}y^b$: $3(b+1) = a+2 \\implies a - 3b = 1$<br>- For $x^a y^{b+1}$: $b+2 = a+1 \\implies a - b = 1$<br>4. Solving this linear system:<br>Subtracting the first equation from the second: $2b = 0 \\implies b = 0$.<br>Plugging $b=0$ back: $a = 1$.<br>5. The integrating factor is $\\mu(x,y) = x^1 y^0 = x$.<br>The product $a \\cdot b = 1 \\cdot 0 = 0$.",
+            cognitive_analysis: {
+                bloom_level: "Uygulama (Application)",
+                solo_level: "Çok Yönlü (Multi-structural)",
+                dok_level: "Düzey 2 (Beceri/Kavramsal)",
+                theorems_used: ["Tam Diferansiyel Denklemler", "İntegral Çarpanı Yöntemi"],
+                misconceptions_targeted: ["İntegral çarpanının sadece tek değişkene bağlı olabileceği önyargısı"],
+                originality_rationale: "Adayı formül ezberlemek yerine tam diferansiyel şartının kısmi türev eşitliğine dayanan tanımını yapmaya ve katsayı eşitlemeye yönlendirir."
+            }
+        },
+        {
+            kazanim_id: "um_1",
             question: "A certain genetic condition occurs in 1 out of 1000 people. A diagnostic test is 99% accurate when a person has the condition, and has a 2% false-positive rate. If a randomly selected person tests positive, what is the probability they actually have the condition?",
             options: {
                 A: "99%",
